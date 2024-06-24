@@ -1,0 +1,50 @@
+// Event
+###
+GET http://localhost:3000/events
+
+
+###
+# @name createEvent
+POST http://localhost:3000/events
+Content-Type: application/json
+
+{
+    "name": "Novo evento",
+    "description": "Este é um novo evento",
+    "date": "2024-06-25T00:00:00",
+    "price": 100
+}
+
+###
+@eventId = {{ createEvent.response.body.id }}
+
+###
+GET http://localhost:3000/events/{{ eventId }}
+
+###
+PATCH http://localhost:3000/events/{{ eventId }}
+Content-Type: application/json
+
+{
+    "name": "Novo evento Editado",
+    "description": "Este é um novo evento Editado",
+    "date": "2024-07-25T00:00:00",
+    "price": 100
+}
+
+###
+DELETE  http://localhost:3000/events/{{ eventId }}
+
+// Spot
+###
+GET  http://localhost:3000/events/{{ eventId }}/spots
+
+
+###
+# @name createSpot
+POST http://localhost:3000/events/{{ eventId }}/spots
+Content-Type: application/json
+
+{
+    "name": "A1"
+}
