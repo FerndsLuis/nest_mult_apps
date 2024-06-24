@@ -13,8 +13,8 @@ services:
       MYSQL_DATABASE: partners
     ports:
       - 3306:3306
-    volumes:
-      - ./.docker/dbdata:/var/lib/mysql
+    # volumes:
+    #   - ./.docker/dbdata:/var/lib/mysql
 
 networks:
   network1:
