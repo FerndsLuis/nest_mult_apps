@@ -1,0 +1,63 @@
+// Event
+###
+GET http://localhost:3001/eventos
+
+
+###
+# @name createEvent
+POST http://localhost:3001/eventos
+Content-Type: application/json
+
+{
+    "nome": "Novo evento",
+    "descricao": "Este é um novo evento",
+    "data": "2024-06-25T00:00:00",
+    "preco": 100
+}
+
+###
+@eventId = {{ createEvent.response.body.id }}
+
+###
+GET http://localhost:3001/eventos/{{ eventId }}
+
+###
+PATCH http://localhost:3001/eventos/{{ eventId }}
+Content-Type: application/json
+
+{
+    "nome": "Novo evento Editado",
+    "descricao": "Este é um novo evento Editado",
+    "data": "2024-07-25T00:00:00",
+    "preco": 100
+}
+
+###
+DELETE  http://localhost:3001/eventos/{{ eventId }}
+
+// Spot
+###
+GET  http://localhost:3001/eventos/{{ eventId }}/lugares
+
+
+###
+# @name createSpot
+POST http://localhost:3001/eventos/{{ eventId }}/lugares
+Content-Type: application/json
+
+{
+    "nome": "A4"
+}
+
+###
+@spotName = {{ createSpot.response.body.name }}
+
+###
+POST http://localhost:3001/eventos/{{ eventId }}/reservar
+Content-Type: application/json
+
+{
+    "lugares": ["{{ spotName }}"],
+    "tipo_ingresso": "full",
+    "email": "teste@teste.com"
+}
